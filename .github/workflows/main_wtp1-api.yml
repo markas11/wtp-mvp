@@ -28,10 +28,10 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: 'Resolve Project Dependencies Using Dotnet'
+      - name: 'Publish'
         shell: pwsh
         run: |
-          dotnet build world-tourist-passport-mvp-v2/src/PassportFunctions/PassportFunctions.csproj -c Release
+          dotnet publish world-tourist-passport-mvp-v2/src/PassportFunctions/PassportFunctions.csproj -c Release -o published
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -46,9 +46,10 @@ jobs:
         with:
           app-name: 'wtp1-api'
           slot-name: 'Production'
-          package: 'world-tourist-passport-mvp-v2/src/PassportFunctions'
+          package: 'published'
 
 
           
+
 
 
