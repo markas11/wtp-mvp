@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/PassportFunctions'
-  DOTNET_VERSION: '8.0.x' 
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '8.0.x' # set this to the dotnet version to use
 
 jobs:
   build-and-deploy:
@@ -39,9 +39,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_86CE75F2438C489D866BFB4C04C5302C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EEEEFA9C373241248A6EBA9E8CCB8405 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_35A0E49EDDF2491DA58C654076052A4E }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C63EA3AD64D246A6A3513EFCCCC24DC3 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8FAFB55092F24818941D3CAE6549BF95 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D4E574E967FF4898A01B42EA1EB2B350 }}
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
@@ -49,6 +49,5 @@ jobs:
         with:
           app-name: 'wtp1-api'
           slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           
