@@ -1,7 +1,7 @@
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Extensions.Http;
 using Microsoft.Azure.Functions.Worker.Http;
-using System.Net;
+using System.Net
 
 
 public class ApiFunctions
