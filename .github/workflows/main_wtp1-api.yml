@@ -32,9 +32,7 @@ jobs:
       - name: 'Resolve Project Dependencies Using Dotnet'
         shell: pwsh
         run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          dotnet build --configuration Release --output ./output
-          popd
+          dotnet build src/PassportFunctions/PassportFunctions.csproj -c Release
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -50,4 +48,5 @@ jobs:
           app-name: 'wtp1-api'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+
           
