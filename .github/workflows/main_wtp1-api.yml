@@ -26,18 +26,16 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: 'Resolve Project Dependencies Using Dotnet'
-        shell: bash
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          dotnet build --configuration Release --output ./output
-          popd
+      -   name: Publish
+          shell: pwsh
+          run: |
+                dotnet publish world-tourist-passport-mvp-v2/src/PassportFunctions/PassportFunctions.csproj `
+                -c Release `
+                -o published
       
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
-        id: fa
         with:
-          app-name: 'wtp1-api'
-          slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81B2A269296E4FA09B1A96570B0D6CBC }}
+         app-name: 'wtp1-api'
+         slot-name: 'Production'
+         package: 'published'
